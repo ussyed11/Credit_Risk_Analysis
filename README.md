@@ -35,7 +35,7 @@ The synthetic minority oversampling technique (SMOTE) is another oversampling ap
 
 Results shown from our code:
 
-![Screen Shot 2022-06-13 at 11 03 15 AM](https://user-images.githubusercontent.com/98566486/173384162-1290e986-0cb8-40aa-92bc-59d27cb4a1f1.png
+![Screen Shot 2022-06-13 at 11 03 15 AM](https://user-images.githubusercontent.com/98566486/173384162-1290e986-0cb8-40aa-92bc-59d27cb4a1f1.png)
 
 #### Cluster Centroids (Undersampling)
 
@@ -49,7 +49,41 @@ Cluster centroid undersampling is akin to SMOTE. The algorithm identifies cluste
 
 Results shown from our code:
 
+![Screen Shot 2022-06-13 at 11 33 05 AM](https://user-images.githubusercontent.com/98566486/173390437-571959e0-d79e-48d3-b559-fc916cab72b1.png)
 
+#### SMOTEENN (Combination Sampling)
 
+We used SMOTEENN technique in this model. As with SMOTE, the minority class is oversampled; however, an undersampling step is added, removing some of each class's outliers from the dataset. The result is that the two classes are separated more cleanly. Resampling with SMOTEENN did not work miracles, but some of the metrics show an improvement over undersampling.
 
-Summary: Summarize the results of the machine learning models, and include a recommendation on the model to use, if any. If you do not recommend any of the models, justify your reasoning.
+* Balanced Accuracy Score: This model accurately predicts credit risk 64% of the time when the classes are balanced by combination over and undersampling.
+* Preciscion: The precision scores for this model are the same as the first three models.
+* Recall: This model correctly classifies 72% of high risk applicants and 57% of low risk applicants. This model has the best sensitivity for detecting high risk applicants out of all four sampling models.
+
+Results shown from our code:
+
+![Screen Shot 2022-06-13 at 11 38 01 AM](https://user-images.githubusercontent.com/98566486/173391398-62e39834-49ef-4663-a67b-f1917985a96e.png)
+
+#### Balanced Random Forest Classifier
+We next tried two ensembles models, which improves overall model performance by combining multiple models to help improve accuracty and decrease variance. The Random Forests Classifier is composed of several small decision trees created from random sampling. By using the Balanced Random Forests, we oversample from the minority class to balance the classes.
+
+Balanced Accuracy Score: This model accurately predicts credit risk 66% of the time when multiple models are combined and the minority class is balanced by oversampling.
+Preciscion: This model has the highest precision for classifying high risk applicants compared to models built from sampling techniques alone, but with a precision score of 0.72 for high risk and 1.0 for low risk applicants. This model has the same preciscion score for classifying low risk applicants as the previous models (100%).
+Recall: This model correctly identifies 100% of low risk applicants as low risk, and 32% of high risk applicants as high risk. The high recall score for low risk makes this ensemble model a better performer than models built from sampling techniques alone.
+
+Our findings:
+
+![Screen Shot 2022-06-13 at 11 46 46 AM](https://user-images.githubusercontent.com/98566486/173393060-26d6fe7e-9320-4223-b90b-4160e71fe9c4.png)
+
+#### Easy Ensemble AdaBoost Classifier
+The final model was built using an easy ensemble classifier with adaptive boosting, or AdaBoost. Using AdaBoost, a model is trained and then evaluated. The errors of the first model are given extra weight when the subsequent model is trained and so on until the error rate is minimized.
+
+* Balanced Accuracy Score: This model accurately predicts credit risk 92.5% of the time when multiple models are trained sequentially on a balanced dataset to minimize error.
+* Preciscion: The precision score for correclty identifying high risk applicants is 7%, which is the highest for all 6 models. The preciscion score for low risk applicants is 100%, which is the same as the other models.
+* Recall: In this model, 91% of high risk and 94% of low risk applicants were correctly identified, which is the highest recall score of all the models.
+
+Our results are shown below:
+
+![Screen Shot 2022-06-13 at 11 51 08 AM](https://user-images.githubusercontent.com/98566486/173393854-40438223-d280-4aac-96ca-ccd8c32eea54.png)
+
+## Summary
+Based on the analysis, it was clear that none of the models used here would have a high enough accuracy score to be used for credit risk evaluation since there was only little improvement in accuracy and the overall performances were too unsatisfactory to be reputably used in loan lending decision making. Out of all six models, the EasyEnsembleClassifer model yielded the best results with an accuracy rate of 92.5% and a 7% precision rate when predicting "High Risk candidates. The sensitivity rate (aka recall) was also the highest at 91% compared to the other models. The result for predicting "Low Risk" was also the highest with the sensitivity rate at 94% and an F1 score of 97%. Therefore, if a model needed to be recommended to perform this type of analysis, then the EasyEnsembleClassifer model would be the clear choice.
